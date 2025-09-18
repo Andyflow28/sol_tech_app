@@ -1,0 +1,42 @@
+import 'package:flutter/material.dart';
+
+class LoadingButton extends StatelessWidget {
+  final bool isLoading;
+  final String text;
+  final VoidCallback onPressed;
+
+  const LoadingButton({
+    Key? key,
+    required this.isLoading,
+    required this.text,
+    required this.onPressed,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: isLoading ? null : onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Colors.white,
+        minimumSize: const Size(double.infinity, 50),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+      ),
+      child: isLoading
+          ? const SizedBox(
+              height: 20,
+              width: 20,
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                strokeWidth: 2,
+              ),
+            )
+          : Text(
+              text,
+              style: const TextStyle(fontSize: 16),
+            ),
+    );
+  }
+}
